@@ -37,3 +37,30 @@ class PreProcess:
                 data_array.append(current_sent_dictionary)
 
         return data_array
+
+    @staticmethod
+    def getSentenceArray(dataFile: str):
+        sentence_array = []
+        with open(dataFile) as f:
+            # Initialize variables
+            current_sent_array = []
+
+            for line in f:
+                if line.startswith(Constants.ID_IDENTIFIER):
+                    if len(current_sent_array) > 0:
+                        sentence_array.append(current_sent_array)
+                        current_sent_array = []
+                elif line.strip() == '':
+                    pass
+                else:
+                    # Split the line into its constituent parts
+                    parts = line.strip().split(Constants.SEPERATOR)
+                    # Get the word and label for this token
+                    word = parts[0]
+                    current_sent_array.append(word)
+
+            # If there are any tokens left in the current sentence, add it to the list of sentences
+            if len(current_sent_array) > 0:
+                sentence_array.append(current_sent_array)
+
+        return sentence_array
