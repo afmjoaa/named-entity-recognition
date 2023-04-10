@@ -1,5 +1,6 @@
 from src.util.constants import Constants
 
+
 class PreProcess:
     def __init__(self):
         pass
@@ -128,5 +129,3 @@ class PreProcess:
                     else:
                         label_array.append(label)
         return word_array, label_array
-
-

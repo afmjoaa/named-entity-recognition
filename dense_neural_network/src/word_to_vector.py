@@ -24,3 +24,11 @@ class WordToVector:
         vector = nlp(word).vector
         # print(vector)
         return vector
+
+    @staticmethod
+    def getPretrainedWordToVecList(wordArr: list[str]):
+        wordToVecArr = []
+        nlp = spacy.load("en_core_web_md")
+        for word in wordArr:
+            wordToVecArr.append(nlp(word).vector)
+        return wordToVecArr

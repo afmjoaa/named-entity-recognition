@@ -1,19 +1,20 @@
-from pre_process import PreProcess
 from word_to_vector import WordToVector
 
-def inference():
-    # Load the trained model and inference the dev data
+class DnnInference:
+    def __init__(self, testWordArray, testLabelArray):
+        self.testWordArray = testWordArray
+        self.testLabelArray = testLabelArray
 
-    # Start the training save the model to a file.
-    wordArr, labelArr = PreProcess.getTrainingTuple(dataFile='dummy.conll', onlyBioTagging=True)
-    print(wordArr, labelArr)
+    def inferenceAndPrint(self, model, limit: int):
+        for i in range(limit):
+            currentWord = self.testWordArray[i]
+            wordToVec = WordToVector.getPretrainedWordToVec(currentWord)
+            predictions = model.predict(wordToVec)
+            print(currentWord, self.testLabelArray[i], predictions)
 
-    # wordToVector = WordToVector(sentenceArray).getTrainedWordToVec("winner")
+    @staticmethod
+    def inferenceFromTrainedWordToVec(wordToVecList, model, limit: int):
+        for i in range(limit):
+            predictions = model.predict(wordToVecList[i])
+            print(predictions)
 
-    # wordToVector = WordToVector.getPretrainedWordToVec("this")
-    # print(sentenceArray)
-    # print(wordToVector)
-
-
-if __name__ == "__main__":
-    inference()
