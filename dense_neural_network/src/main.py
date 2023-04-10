@@ -3,6 +3,8 @@ from word_to_vector import WordToVector
 from one_hot_encoding import OneHotEncoder
 import numpy as np
 from training import DnnTraining
+from inference import DnnInference
+from keras.models import load_model
 
 def pipeline():
     # Get word array and label array
@@ -21,5 +23,12 @@ def pipeline():
     training.saveTrainedModel()
 
 
+def predict():
+    wordArr, labelArr = PreProcess.getTrainingTuple(dataFile='dummy.conll', onlyBioTagging=True)
+    model = load_model('dnn_model.h5')
+    inference = DnnInference(wordArr, labelArr)
+    inference.inferenceAndPrint(model, 5)
+
+
 if __name__ == "__main__":
-    pipeline()
+    predict()
