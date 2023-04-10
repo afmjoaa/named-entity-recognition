@@ -1,16 +1,24 @@
-from pre_process import PreProcess
-from word_to_vector import WordToVector
+from model import DnnModel
+from keras.models import load_model
 
-def training():
-    # Start the training save the model to a file.
-    sentenceArray = PreProcess.getSentenceArray(dataFile='dummy.conll')
-    wordToVector = WordToVector(sentenceArray).getTrainedWordToVec("winner")
+class DnnTraining:
+    def __init__(self, input_dim=100, output_dim=3):
+        self.model = DnnModel().createDefaultModel(input_dim, output_dim)
 
-    # wordToVector = WordToVector.getPretrainedWordToVec("this")
-    print(sentenceArray)
-    print(wordToVector)
+    def startTraining(self, X_train, y_train, X_val, y_val):
+        self.model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+        self.model.fit(X_train, y_train, epochs=10, batch_size=32, validation_data=(X_val, y_val))
+
+    def saveTrainedModel(self):
+        self.model.save('dnn_model.h5')
+
+    def getCurrentModel(self):
+        return self.model
+
+    @staticmethod
+    def getSavedModel():
+        dnnModel = load_model('my_model.h5')
+        return dnnModel
 
 
-if __name__ == "__main__":
-    training()
 
