@@ -129,3 +129,5 @@ class PreProcess:
                     else:
                         label_array.append(label)
         return word_array, label_array
+
+

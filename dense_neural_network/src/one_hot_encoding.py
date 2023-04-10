@@ -16,3 +16,14 @@ class OneHotEncoder:
             if item == Constants.OUTSIDE:
                 oneHotLabel_array.append(Constants.OUTSIDE_ONEHOT)
         return oneHotLabel_array
+
+    @staticmethod
+    def getDecodedLabel(arr):
+        prediction_arr = arr.tolist()
+        index = prediction_arr.index(max(prediction_arr))
+        if index ==0:
+            return Constants.BEGEN
+        elif index ==1:
+            return Constants.INSIDE
+        else:
+            return Constants.OUTSIDE

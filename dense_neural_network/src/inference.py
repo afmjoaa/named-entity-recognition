@@ -1,5 +1,6 @@
 from word_to_vector import WordToVector
 import numpy as np
+from one_hot_encoding import OneHotEncoder
 
 class DnnInference:
     def __init__(self, testWordArray, testLabelArray):
@@ -13,7 +14,7 @@ class DnnInference:
             np_wordToVec = np.array(wordToVec)
             input_data = np_wordToVec.reshape((1, np_wordToVec.shape[0]))
             predictions = model.predict(input_data)
-            print(currentWord, self.testLabelArray[i], predictions)
+            print(currentWord, self.testLabelArray[i], OneHotEncoder.getDecodedLabel(predictions[0]), predictions[0],)
 
     @staticmethod
     def inferenceFromTrainedWordToVec(wordToVecList, model, limit: int):
