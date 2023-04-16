@@ -9,6 +9,9 @@ __pycache__/
 # C extensions
 *.so
 
+# lightening logs
+lightning_logs/
+
 # Distribution / packaging
 .Python
 build/
