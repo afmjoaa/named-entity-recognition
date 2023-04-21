@@ -1,4 +1,4 @@
-![alt text](../assets/dnn.png)
+![alt text](../assets/DNN.png)
 
 | Dependencies     |
 |------------------|
