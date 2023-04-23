@@ -25,7 +25,6 @@ def custom_logger(log_path):
         log_file.write("score\t")
         for pipe in nlp.pipe_names:
             log_file.write(f"loss_{pipe}\t")
-        log_file.write("other_scores\t")
         log_file.write("\n")
         log_file.flush()
 
@@ -39,7 +38,6 @@ def custom_logger(log_path):
                     with train_writer.as_default():
                         tf.summary.scalar(f'loss_{pipe}', info['losses'][pipe], step=info['step'])
                     log_file.write(f"{info['losses'][pipe]}\t")
-                log_file.write(f"{info.get('other_score')}\t")
                 log_file.write("\n")
                 log_file.flush()
                 # Write for tensorboard
