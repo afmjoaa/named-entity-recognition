@@ -10,14 +10,13 @@ import tensorflow as tf
 @spacy.registry.loggers("custom_logger.v1")
 def custom_logger(log_path):
     console = console_logger(progress_bar=True)
-    train_writer = tf.summary.create_file_writer('../log/train')
+    train_writer = tf.summary.create_file_writer("../log/train")
 
     def setup_logger(
-            nlp: Language,
-            stdout: IO = sys.stdout,
-            stderr: IO = sys.stderr,
+        nlp: Language,
+        stdout: IO = sys.stdout,
+        stderr: IO = sys.stderr,
     ) -> Tuple[Callable, Callable]:
-
         stdout.write(f"Logging to {log_path}\n")
         console_log_step, console_finalize = console(nlp, stdout, stderr)
         log_file = Path(log_path).open("w", encoding="utf8")
@@ -36,13 +35,15 @@ def custom_logger(log_path):
                 for pipe in nlp.pipe_names:
                     # Write for tensorboard
                     with train_writer.as_default():
-                        tf.summary.scalar(f'loss_{pipe}', info['losses'][pipe], step=info['step'])
+                        tf.summary.scalar(
+                            f"loss_{pipe}", info["losses"][pipe], step=info["step"]
+                        )
                     log_file.write(f"{info['losses'][pipe]}\t")
                 log_file.write("\n")
                 log_file.flush()
                 # Write for tensorboard
                 with train_writer.as_default():
-                    tf.summary.scalar('Score', info['score'], step=info['step'])
+                    tf.summary.scalar("Score", info["score"], step=info["step"])
                     train_writer.flush()
 
         def finalize():

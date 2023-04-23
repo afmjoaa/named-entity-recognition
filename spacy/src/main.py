@@ -20,4 +20,4 @@ def CreateSpacyDataset():
 if __name__ == "__main__":
     # CreateSpacyDataset()
     train = Train()
-    train.startTraining(isResumed=True)
+    train.startTraining(isResumed=False)
