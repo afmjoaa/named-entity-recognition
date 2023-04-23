@@ -1,5 +1,6 @@
 import subprocess
 import os
+from spacy.cli.train import train
 
 
 class Train:
@@ -33,18 +34,21 @@ class Train:
         )
 
     @staticmethod
-    def startTraining():
+    def startTraining(isResumed: bool):
         directory = "../output"
         if not os.path.exists(directory):
             os.mkdir(directory)
 
+        configPath: str = "../config/config.cfg"
+        if isResumed:
+            configPath = "../config/resume_config.cfg"
         subprocess.run(
             [
                 "python",
                 "-m",
                 "spacy",
                 "train",
-                "../config/config.cfg",
+                configPath,
                 "--output",
                 "../output",
                 "--paths.train",
