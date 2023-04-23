@@ -11,6 +11,8 @@ __pycache__/
 
 # lightening logs
 lightning_logs/
+output/
+log/
 
 # Distribution / packaging
 .Python

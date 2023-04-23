@@ -1,4 +1,5 @@
 from spacy_dataset import SpacyDataset
+from train import Train
 
 
 def CreateSpacyDataset():
@@ -17,4 +18,6 @@ def CreateSpacyDataset():
 
 
 if __name__ == "__main__":
-    CreateSpacyDataset()
+    # CreateSpacyDataset()
+    train = Train()
+    train.startTraining()
