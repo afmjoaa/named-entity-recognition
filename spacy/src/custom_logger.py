@@ -10,7 +10,7 @@ import tensorflow as tf
 @spacy.registry.loggers("custom_logger.v1")
 def custom_logger(log_path):
     console = console_logger(progress_bar=True)
-    train_writer = tf.summary.create_file_writer("../log/train")
+    train_writer = tf.summary.create_file_writer("../log/tensorboard")
 
     def setup_logger(
         nlp: Language,

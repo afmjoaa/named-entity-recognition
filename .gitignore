@@ -6,13 +6,17 @@ __pycache__/
 #idea
 .idea/
 
+#mac
+.DS_Store
+
 # C extensions
 *.so
 
 # lightening logs
 lightning_logs/
-output/
-log/
+local/
+model-best/
+model-last/
 
 # Distribution / packaging
 .Python

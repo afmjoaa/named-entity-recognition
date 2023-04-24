@@ -1,5 +1,6 @@
 from spacy_dataset import SpacyDataset
 from train import Train
+from inference import Inference
 
 
 def CreateSpacyDataset():
@@ -18,6 +19,11 @@ def CreateSpacyDataset():
 
 
 if __name__ == "__main__":
+    # For creating dataset uncomment the CreateSpacyDataset function (line 23)
     # CreateSpacyDataset()
-    train = Train()
-    train.startTraining(isResumed=False)
+
+    # For training the model uncomment line 25
+    # Train().startTraining(isResumed=False)
+
+    # For evaluating the trained model use line 30
+    Inference().evaluateTestDataset(None)
