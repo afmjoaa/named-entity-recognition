@@ -1,5 +1,6 @@
 from transformers import AutoTokenizer, AutoModelForTokenClassification
 from transformers import pipeline
+from preprocess import PreProcess
 
 def test():
     tokenizer = AutoTokenizer.from_pretrained("dslim/bert-base-NER")
@@ -13,4 +14,4 @@ def test():
 
 
 if __name__ == "__main__":
-    test()
+    PreProcess.saveRawDataInJson("../data/all_data.json")
