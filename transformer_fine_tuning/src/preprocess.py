@@ -1,5 +1,6 @@
 """
 Create raw .json file will all data available.
+Create raw .json file for label information.
 """
 import random
 import json
@@ -42,7 +43,74 @@ class PreProcess:
         return data_array
 
     @staticmethod
-    def saveRawDataInJson(filename):
+    def getLabelArray(dataFile: str, onlyBioTagging=False):
+        label_array = []
+        with open(dataFile) as f:
+            for line in f:
+                if line.startswith(Constants.ID_IDENTIFIER):
+                    pass
+                elif line.strip() == "":
+                    pass
+                else:
+                    # Split the line into its constituent parts
+                    parts = line.strip().split(Constants.SEPERATOR)
+                    # Get the word and label for this token
+                    label = parts[-1]
+                    if onlyBioTagging:
+                        bio_parts = label.strip().split(Constants.BIOX_SEPERATOR)
+                        only_bio_tag = bio_parts[0]
+                        label_array.append(only_bio_tag)
+                    else:
+                        label_array.append(label)
+        return label_array
+
+    @staticmethod
+    def saveLabelInfo(fileName):
+        train_file_location = "../../data/en-train.conll"
+        dev_file_location = "../../data/en-dev.conll"
+        train_file_label = PreProcess.getLabelArray(train_file_location)
+        dev_file_label = PreProcess.getLabelArray(dev_file_location)
+        all_label_list = train_file_label + dev_file_label
+
+        unique_labels = Utility.get_unique_items(all_label_list)
+        unique_labels.sort(reverse=True)
+        id2label = {i: label for i, label in enumerate(unique_labels)}
+        label2id = {label: i for i, label in enumerate(unique_labels)}
+
+        data = {
+            "unique_labels": unique_labels,
+            "id2label": id2label,
+            "label2id": label2id,
+        }
+
+        with open(fileName, "w") as f:
+            json.dump(data, f)
+
+    @staticmethod
+    def readLabelInfo(fileName, destructure):
+        with open(fileName, "r") as f:
+            data = json.load(f)
+
+        unique_labels = data["unique_labels"]
+        id2label = data["id2label"]
+        label2id = data["label2id"]
+
+        if destructure:
+            return unique_labels, id2label, label2id
+        else:
+            return data
+
+    @staticmethod
+    def addSentenceAndLabelKey(sample, label2id):
+        sentence = ""
+        ner_tags = []
+        for word, label in sample.items():
+            ner_tags.append(label2id[label])
+            sentence += word + " "
+        return {"sentence": sentence.strip(), "ner_tags": ner_tags}
+
+    @staticmethod
+    def saveRawDataInJson(dataFileName, labelFileName):
         train_file_location = "../../data/en-train.conll"
         dev_file_location = "../../data/en-dev.conll"
         train_file_data = PreProcess.getDataArrayAsMap(train_file_location)
@@ -50,19 +118,11 @@ class PreProcess:
         all_data_list = train_file_data + dev_file_data
         random.shuffle(all_data_list)
 
-        formatted_data_list = list(map(PreProcess.addSentenceAndLabelKey, all_data_list))
+        _, __, label2id = PreProcess.readLabelInfo(labelFileName, True)
 
-        with open(filename, 'w') as f:
+        formatted_data_list = list(
+            map(lambda x: PreProcess.addSentenceAndLabelKey(x, label2id), all_data_list)
+        )
+
+        with open(dataFileName, "w") as f:
             json.dump(formatted_data_list, f)
-
-    @staticmethod
-    def addSentenceAndLabelKey(sample):
-        sentence = ""
-        label_arr = []
-        for word, label in sample.items():
-            label_arr.append(label)
-            sentence += word + " "
-        return {"sentence": sentence.strip(), "label_array": label_arr}
-
-
-

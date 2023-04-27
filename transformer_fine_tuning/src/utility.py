@@ -8,9 +8,9 @@ class Constants:
     BEGEN_ONEHOT = [1, 0, 0]
     INSIDE_ONEHOT = [0, 1, 0]
     OUTSIDE_ONEHOT = [0, 0, 1]
-    PAD_TOKEN = '<PAD>'
-    START_TOKEN = '<START>'
-    END_TOKEN = '<END>'
+    PAD_TOKEN = "<PAD>"
+    START_TOKEN = "<START>"
+    END_TOKEN = "<END>"
     SEQUENCE_LENGTH = 35
     TASK = "ner"
     MODEL_CHECKPOINT = "distilbert-base-uncased"
@@ -27,3 +27,7 @@ class Utility:
     def make_sentence(words) -> str:
         sentence = " ".join(words)
         return sentence
+
+    @staticmethod
+    def get_unique_items(lst):
+        return list(set(lst))

@@ -50,4 +50,3 @@ class LabelProcess:
                     else:
                         label_array.append(label)
         return label_array
-
