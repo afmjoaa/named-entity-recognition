@@ -14,8 +14,8 @@ class Constants:
     SEQUENCE_LENGTH = 35
     TASK = "ner"
     MODEL_CHECKPOINT = "distilbert-base-uncased"
-    BATCH_SIZE = 64
-    MAX_EPOCH = 1000
+    BATCH_SIZE = 16
+    MAX_EPOCH = 500
 
 
 class Utility:
