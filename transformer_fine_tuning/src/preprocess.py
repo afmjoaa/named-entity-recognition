@@ -4,7 +4,7 @@ Create raw .json file for label information.
 """
 import random
 import json
-from utility import Constants, Utility
+from src.utility import Constants, Utility
 
 
 class PreProcess:

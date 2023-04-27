@@ -17,6 +17,7 @@ lightning_logs/
 local/
 model-best/
 model-last/
+model/
 
 # Distribution / packaging
 .Python
