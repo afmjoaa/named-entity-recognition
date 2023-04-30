@@ -96,14 +96,18 @@ class TestTransformerTraining(unittest.TestCase):
         device = (
             torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
         )
-        if device.type == "cpu":
-            print("This unit test was not run because it requires a GPU")
-            return
+        # if device.type == "cpu":
+        #     print("This unit test was not run because it requires a GPU")
+        #     return
 
         # Hyperparameters
-        synthetic_corpus_size = 600
+        # synthetic_corpus_size = 600
+        # batch_size = 60
+        # n_epochs = 200
+        # n_tokens_in_batch = 10
+        synthetic_corpus_size = 10
         batch_size = 60
-        n_epochs = 200
+        n_epochs = 2
         n_tokens_in_batch = 10
 
         # Construct vocabulary and create synthetic data by uniform randomly sampling tokens from it
@@ -113,7 +117,9 @@ class TestTransformerTraining(unittest.TestCase):
         vocab_size = len(
             list(vocab.token2index.keys())
         )  # 14 tokens including bos, eos and pad
+
         valid_tokens = list(vocab.token2index.keys())[3:]
+
         corpus += [
             " ".join(choices(valid_tokens, k=n_tokens_in_batch))
             for _ in range(synthetic_corpus_size)
@@ -121,6 +127,7 @@ class TestTransformerTraining(unittest.TestCase):
 
         # Construct src-tgt aligned input batches (note: the original paper uses dynamic batching based on tokens)
         corpus = [{"src": sent, "tgt": sent} for sent in corpus]
+        print(corpus)
         batches, masks = construct_batches(
             corpus,
             vocab,

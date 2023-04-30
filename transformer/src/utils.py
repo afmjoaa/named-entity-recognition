@@ -3,7 +3,19 @@ from typing import Dict, List, Tuple, Optional
 
 import torch
 
-from vocabulary import Vocabulary
+from src.vocabulary import Vocabulary
+
+
+class Constants:
+    SEPERATOR = " _ _ "
+    ID_IDENTIFIER = "#"
+    BIOX_SEPERATOR = "-"
+    BEGEN = "B"
+    INSIDE = "I"
+    OUTSIDE = "O"
+    BEGEN_ONEHOT = [1, 0, 0]
+    INSIDE_ONEHOT = [0, 1, 0]
+    OUTSIDE_ONEHOT = [0, 0, 1]
 
 
 def construct_future_mask(seq_len: int):
