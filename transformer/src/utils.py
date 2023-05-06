@@ -32,12 +32,13 @@ def construct_future_mask(seq_len: int):
 
 
 def construct_batches(
-    corpus: List[Dict[str, str]],
-    vocab: Vocabulary,
-    batch_size: int,
-    src_lang_key: str,
-    tgt_lang_key: str,
-    device: Optional[torch.device] = None,
+        corpus: List[Dict[str, str]],
+        src_vocab: Vocabulary,
+        tgt_vocab: Vocabulary,
+        batch_size: int,
+        src_lang_key: str,
+        tgt_lang_key: str,
+        device: Optional[torch.device] = None,
 ) -> Tuple[Dict[str, List[torch.Tensor]], Dict[str, List[torch.Tensor]]]:
     """
     Constructs batches given a corpus.
@@ -50,20 +51,20 @@ def construct_batches(
     :param device: whether or not to move tensors to gpu
     :return: A tuple containing two dictionaries. The first represents the batches, the second the attention masks.
     """
-    pad_token_id = vocab.token2index[vocab.PAD]
+    pad_token_id = src_vocab.token2index[src_vocab.PAD]
     batches: Dict[str, List] = {"src": [], "tgt": []}
     masks: Dict[str, List] = {"src": [], "tgt": []}
     for i in range(0, len(corpus), batch_size):
         src_batch = torch.IntTensor(
-            vocab.batch_encode(
-                [pair[src_lang_key] for pair in corpus[i : i + batch_size]],
+            src_vocab.batch_encode(
+                [pair[src_lang_key] for pair in corpus[i: i + batch_size]],
                 add_special_tokens=True,
                 padding=True,
             )
         )
         tgt_batch = torch.IntTensor(
-            vocab.batch_encode(
-                [pair[tgt_lang_key] for pair in corpus[i : i + batch_size]],
+            tgt_vocab.batch_encode(
+                [pair[tgt_lang_key] for pair in corpus[i: i + batch_size]],
                 add_special_tokens=True,
                 padding=True,
             )
@@ -120,7 +121,7 @@ class TestUtils(unittest.TestCase):
         )
         vocab = Vocabulary(en_sentences + nl_sentences)
         batches, masks = construct_batches(
-            corpus, vocab, batch_size=2, src_lang_key="en", tgt_lang_key="nl"
+            corpus, vocab, vocab, batch_size=2, src_lang_key="en", tgt_lang_key="nl"
         )
         torch.testing.assert_close(
             batches["src"],

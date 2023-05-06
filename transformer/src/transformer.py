@@ -21,32 +21,38 @@ class Transformer(nn.Module):
         num_heads: int,
         num_layers: int,
         max_decoding_length: int,
-        vocab_size: int,
-        padding_idx: int,
-        bos_idx: int,
+        encoder_vocab_size: int,
+        decoder_vocab_size: int,
+        encoder_padding_idx: int,
+        decoder_padding_idx: int,
+        encoder_bos_idx: int,
+        decoder_bos_idx: int,
         dropout_p: float,
         tie_output_to_embedding: Optional[bool] = None,
     ):
         super().__init__()
         # Because the encoder embedding, and decoder embedding and decoder pre-softmax transformeation share embeddings
         # weights, initialize one here and pass it on.
-        self.embed = nn.Embedding(vocab_size, hidden_dim, padding_idx=padding_idx)
+        self.encoder_embed = nn.Embedding(encoder_vocab_size, hidden_dim, padding_idx=encoder_padding_idx)
         self.encoder = TransformerEncoder(
-            self.embed, hidden_dim, ff_dim, num_heads, num_layers, dropout_p
+            self.encoder_embed, hidden_dim, ff_dim, num_heads, num_layers, dropout_p
         )
+        self.decoder_embed = nn.Embedding(decoder_vocab_size, hidden_dim, padding_idx=decoder_padding_idx)
         self.decoder = TransformerDecoder(
-            self.embed,
+            self.decoder_embed,
             hidden_dim,
             ff_dim,
             num_heads,
             num_layers,
-            vocab_size,
+            decoder_vocab_size,
             dropout_p,
             tie_output_to_embedding,
         )
 
-        self.padding_idx = padding_idx
-        self.bos_idx = bos_idx
+        self.encoder_padding_idx = encoder_padding_idx
+        self.decoder_padding_idx = decoder_padding_idx
+        self.encoder_bos_idx = encoder_bos_idx
+        self.decoder_bos_idx = decoder_bos_idx
         self.max_decoding_length = max_decoding_length
         self.hidden_dim = hidden_dim
         self._reset_parameters()
@@ -78,9 +84,12 @@ class TestTransformer(unittest.TestCase):
                 num_heads=8,
                 num_layers=6,
                 max_decoding_length=10,
-                vocab_size=en_vocab_size,
-                padding_idx=en_vocab.token2index[en_vocab.PAD],
-                bos_idx=en_vocab.token2index[en_vocab.BOS],
+                encoder_vocab_size=en_vocab_size,
+                decoder_vocab_size=en_vocab_size,
+                encoder_padding_idx=en_vocab.token2index[en_vocab.PAD],
+                decoder_padding_idx=en_vocab.token2index[en_vocab.PAD],
+                encoder_bos_idx=en_vocab.token2index[en_vocab.BOS],
+                decoder_bos_idx=en_vocab.token2index[en_vocab.BOS],
                 dropout_p=0.1,
                 tie_output_to_embedding=True,
             )
@@ -90,7 +99,7 @@ class TestTransformer(unittest.TestCase):
             encoder_input = torch.IntTensor(
                 en_vocab.batch_encode(corpus, add_special_tokens=False)
             )
-            src_padding_mask = encoder_input != transformer.padding_idx
+            src_padding_mask = encoder_input != transformer.encoder_padding_idx
             encoder_output = transformer.encoder.forward(
                 encoder_input, src_padding_mask=src_padding_mask
             )
@@ -98,7 +107,7 @@ class TestTransformer(unittest.TestCase):
 
             # Prepare decoder input and mask and start decoding
             decoder_input = torch.IntTensor(
-                [[transformer.bos_idx], [transformer.bos_idx]]
+                [[transformer.encoder_bos_idx], [transformer.encoder_bos_idx]]
             )
             future_mask = construct_future_mask(seq_len=1)
             for i in range(transformer.max_decoding_length):
@@ -108,6 +117,7 @@ class TestTransformer(unittest.TestCase):
                     src_padding_mask=src_padding_mask,
                     future_mask=future_mask,
                 )
+
                 # Take the argmax over the softmax of the last token to obtain the next-token prediction
                 predicted_tokens = torch.argmax(
                     decoder_output[:, -1, :], dim=-1
@@ -120,7 +130,7 @@ class TestTransformer(unittest.TestCase):
         self.assertEqual(decoder_input.shape, (2, transformer.max_decoding_length + 1))
         # see test_one_layer_transformer_decoder_inference in decoder.py for more information. with num_layers=1 this
         # will be true.
-        self.assertEqual(torch.all(decoder_input == transformer.bos_idx), False)
+        self.assertEqual(torch.all(decoder_input == transformer.decoder_bos_idx), False)
 
 
 if __name__ == "__main__":

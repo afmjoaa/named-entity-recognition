@@ -1,3 +1,4 @@
+import json
 import unittest
 from typing import List, Dict, Any
 import random
@@ -11,6 +12,7 @@ from lr_scheduler import NoamOpt
 from transformer import Transformer
 from vocabulary import Vocabulary
 from utils import construct_batches
+from transformer_dataset import TransformerDataset
 
 
 def train(
@@ -89,10 +91,94 @@ class TestTransformerTraining(unittest.TestCase):
     random.seed(seed)
     np.random.seed(seed)
 
+    # def test_copy_task(self):
+    #     """
+    #     Test training by trying to (over)fit a simple copy dataset - bringing the loss to ~zero. (GPU required)
+    #     """
+    #     device = (
+    #         torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+    #     )
+    #     # if device.type == "cpu":
+    #     #     print("This unit test was not run because it requires a GPU")
+    #     #     return
+    #
+    #     # Hyperparameters
+    #     # synthetic_corpus_size = 600
+    #     # batch_size = 60
+    #     # n_epochs = 200
+    #     # n_tokens_in_batch = 10
+    #     synthetic_corpus_size = 10
+    #     batch_size = 60
+    #     n_epochs = 2
+    #     n_tokens_in_batch = 10
+    #
+    #     # Construct vocabulary and create synthetic data by uniform randomly sampling tokens from it
+    #     # Note: the original paper uses byte pair encodings, we simply take each word to be a token.
+    #     corpus = ["These are the tokens that will end up in our vocabulary"]
+    #     vocab = Vocabulary(corpus)
+    #     vocab_size = len(
+    #         list(vocab.token2index.keys())
+    #     )  # 14 tokens including bos, eos and pad
+    #
+    #     valid_tokens = list(vocab.token2index.keys())[3:]
+    #
+    #     corpus += [
+    #         " ".join(choices(valid_tokens, k=n_tokens_in_batch))
+    #         for _ in range(synthetic_corpus_size)
+    #     ]
+    #     # print(corpus)
+    #
+    #     # Construct src-tgt aligned input batches (note: the original paper uses dynamic batching based on tokens)
+    #     corpus = [{"src": sent, "tgt": sent} for sent in corpus]
+    #     print(corpus)
+    #     batches, masks = construct_batches(
+    #         corpus,
+    #         vocab,
+    #         batch_size=batch_size,
+    #         src_lang_key="src",
+    #         tgt_lang_key="tgt",
+    #         device=device,
+    #     )
+    #
+    #     # Initialize transformer
+    #     transformer = Transformer(
+    #         hidden_dim=512,
+    #         ff_dim=2048,
+    #         num_heads=8,
+    #         num_layers=2,
+    #         max_decoding_length=25,
+    #         vocab_size=vocab_size,
+    #         padding_idx=vocab.token2index[vocab.PAD],
+    #         bos_idx=vocab.token2index[vocab.BOS],
+    #         dropout_p=0.1,
+    #         tie_output_to_embedding=True,
+    #     ).to(device)
+    #
+    #     # Initialize learning rate scheduler, optimizer and loss (note: the original paper uses label smoothing)
+    #     optimizer = torch.optim.Adam(
+    #         transformer.parameters(), lr=0, betas=(0.9, 0.98), eps=1e-9
+    #     )
+    #     scheduler = NoamOpt(
+    #         transformer.hidden_dim, factor=1, warmup=400, optimizer=optimizer,
+    #     )
+    #     criterion = nn.CrossEntropyLoss()
+    #
+    #     # Start training and verify ~zero loss and >90% accuracy on the last batch
+    #     latest_batch_loss, latest_batch_accuracy = train(
+    #         transformer, scheduler, criterion, batches, masks, n_epochs=n_epochs
+    #     )
+    #     self.assertEqual(latest_batch_loss.item() <= 0.01, True)
+    #     self.assertEqual(latest_batch_accuracy >= 0.99, True)
+
     def test_copy_task(self):
+        # seed = 0
+        # torch.manual_seed(seed)
+        # random.seed(seed)
+        # np.random.seed(seed)
+
         """
-        Test training by trying to (over)fit a simple copy dataset - bringing the loss to ~zero. (GPU required)
-        """
+                Test training by trying to (over)fit a simple copy dataset - bringing the loss to ~zero. (GPU required)
+                """
         device = (
             torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
         )
@@ -105,32 +191,61 @@ class TestTransformerTraining(unittest.TestCase):
         # batch_size = 60
         # n_epochs = 200
         # n_tokens_in_batch = 10
-        synthetic_corpus_size = 10
+        # synthetic_corpus_size = 10
         batch_size = 60
         n_epochs = 2
-        n_tokens_in_batch = 10
+        # n_tokens_in_batch = 10
+
+        train_file_name = "../../data/en-train.conll"
+        dev_file_name = "../../data/en-dev.conll"
+
+        formatted_train_file = "../data/train_data.json"
+        formatted_dev_file = "../data/dev_data.json"
+        formatted_test_file = "../data/test_data.json"
+
+        tran_dataset = TransformerDataset(
+            train_file_name,
+            dev_file_name,
+            formatted_train_file,
+            formatted_dev_file,
+            formatted_test_file
+        )
+        data = tran_dataset.readData()
+        src_corpus = []
+        tgt_corpus = []
+        for value in data:
+            src_corpus.append(value["sentence"])
+            tgt_corpus.append(value["tag"])
 
         # Construct vocabulary and create synthetic data by uniform randomly sampling tokens from it
         # Note: the original paper uses byte pair encodings, we simply take each word to be a token.
-        corpus = ["These are the tokens that will end up in our vocabulary"]
-        vocab = Vocabulary(corpus)
-        vocab_size = len(
-            list(vocab.token2index.keys())
+        # corpus = ["These are the tokens that will end up in our vocabulary"]
+        src_vocab = Vocabulary(src_corpus)
+        tgt_vocab = Vocabulary(tgt_corpus)
+
+        src_vocab_size = len(
+            list(src_vocab.token2index.keys())
         )  # 14 tokens including bos, eos and pad
 
-        valid_tokens = list(vocab.token2index.keys())[3:]
+        tgt_vocab_size = len(
+            list(tgt_vocab.token2index.keys())
+        )  # 14 tokens including bos, eos and pad
 
-        corpus += [
-            " ".join(choices(valid_tokens, k=n_tokens_in_batch))
-            for _ in range(synthetic_corpus_size)
-        ]
+        # valid_tokens = list(src_vocab.token2index.keys())[3:]
+
+        # add repeated same sentence with shuffled words
+        # corpus += [
+        #     " ".join(choices(valid_tokens, k=n_tokens_in_batch))
+        #     for _ in range(synthetic_corpus_size)
+        # ]
 
         # Construct src-tgt aligned input batches (note: the original paper uses dynamic batching based on tokens)
-        corpus = [{"src": sent, "tgt": sent} for sent in corpus]
-        print(corpus)
+        corpus = [{"src": sent["sentence"], "tgt": sent["tag"]} for sent in data]
+        # print(corpus)
         batches, masks = construct_batches(
             corpus,
-            vocab,
+            src_vocab,
+            tgt_vocab,
             batch_size=batch_size,
             src_lang_key="src",
             tgt_lang_key="tgt",
@@ -144,9 +259,12 @@ class TestTransformerTraining(unittest.TestCase):
             num_heads=8,
             num_layers=2,
             max_decoding_length=25,
-            vocab_size=vocab_size,
-            padding_idx=vocab.token2index[vocab.PAD],
-            bos_idx=vocab.token2index[vocab.BOS],
+            encoder_vocab_size=src_vocab_size,
+            decoder_vocab_size=tgt_vocab_size,
+            encoder_padding_idx=src_vocab.token2index[src_vocab.PAD],
+            decoder_padding_idx=tgt_vocab.token2index[tgt_vocab.PAD],
+            encoder_bos_idx=src_vocab.token2index[src_vocab.BOS],
+            decoder_bos_idx=tgt_vocab.token2index[tgt_vocab.BOS],
             dropout_p=0.1,
             tie_output_to_embedding=True,
         ).to(device)
