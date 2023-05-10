@@ -23,5 +23,5 @@ def predict(test_data, test_label):
 
 
 if __name__ == "__main__":
-    train_data, train_label, val_data, val_label, test_data, test_label = PreProcess.loadAndSPlitDataSet(
-        "../../data/en-train.conll", "../../data/en-dev.conll")
+    model = load_model('dnn_model.h5')
+

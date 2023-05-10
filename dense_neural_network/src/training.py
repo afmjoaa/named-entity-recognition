@@ -24,7 +24,7 @@ class DnnTraining:
         return f1
 
     def startTraining(self, X_train, y_train, X_val, y_val, epochs=10):
-        self.model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy', DnnTraining.f1_score()])
+        self.model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy', DnnTraining.f1_score])
 
         # Create a TensorBoard callback
         log_dir = "../logs"
