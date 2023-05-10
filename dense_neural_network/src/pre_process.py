@@ -1,5 +1,7 @@
 from src.util.constants import Constants
-
+from word_to_vector import WordToVector
+from one_hot_encoding import OneHotEncoder
+import numpy as np
 
 class PreProcess:
     def __init__(self):
@@ -129,5 +131,48 @@ class PreProcess:
                     else:
                         label_array.append(label)
         return word_array, label_array
+
+    @staticmethod
+    def loadAndSPlitDataSet(train_file_location, dev_file_location):
+        trainWordArr, trainLabelArr = PreProcess.getTrainingTuple(dataFile=train_file_location, onlyBioTagging=True)
+        devWordArr, devLabelArr = PreProcess.getTrainingTuple(dataFile=dev_file_location, onlyBioTagging=True)
+
+        final_train_arr = trainWordArr + devWordArr
+        final_label_arr = trainLabelArr + devLabelArr
+        print("Train array length: ", len(final_train_arr))
+        print("Label array length: ", len(final_label_arr))
+
+        # Get wordToVector from [wordArr] and oneHotEncoding from [labelArr]
+        wordToVecArr = WordToVector.getPretrainedWordToVecList(final_train_arr)
+        oneHotEncodingArr = OneHotEncoder.getOneHotEncodingOfOutput(final_label_arr)
+
+        # Convert python array to num py array
+        np_wordToVecArr = np.array(wordToVecArr)
+        np_oneHotEncodingArr = np.array(oneHotEncodingArr)
+
+        # Shuffle the data randomly
+        # np.random.shuffle(np_wordToVecArr)
+        # np.random.shuffle(np_oneHotEncodingArr)
+
+        # Split the data into train, validation, and test sets
+        n = len(np_wordToVecArr)
+        train_split = int(0.7 * n)
+        val_split = int(0.2 * n)
+        train_data = np_wordToVecArr[:train_split]
+        val_data = np_wordToVecArr[train_split:train_split + val_split]
+        test_data = np_wordToVecArr[train_split + val_split:]
+
+        # Split the data into train, validation, and test sets
+        n_label = len(np_oneHotEncodingArr)
+        train_label_split = int(0.7 * n_label)
+        val_label_split = int(0.2 * n_label)
+        train_label = np_wordToVecArr[:train_label_split]
+        val_label = np_wordToVecArr[train_label_split:train_label_split + val_label_split]
+        test_label = np_wordToVecArr[train_label_split + val_label_split:]
+
+        return train_data, train_label, val_data, val_label, test_data, test_label
+
+
+
 
 
