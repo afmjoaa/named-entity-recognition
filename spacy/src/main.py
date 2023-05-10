@@ -5,7 +5,7 @@ from inference import Inference
 
 def CreateSpacyDataset():
     train_file_name = "../../data/en-train.conll"
-    dev_file_name = "../../data/en-train.conll"
+    dev_file_name = "../../data/en-dev.conll"
     spacyDataset = SpacyDataset(train_file_name, dev_file_name)
     (
         train_formatted_array,
