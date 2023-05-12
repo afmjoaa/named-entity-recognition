@@ -1,6 +1,8 @@
 import src.train as t
 from src.transformer_dataset import TransformerDataset
-import train as Train
+from train import Test
+
+
 def CreateTransformerDataset():
     train_file_name = "../../data/en-train.conll"
     dev_file_name = "../../data/en-dev.conll"
@@ -36,10 +38,11 @@ def CreateTransformerDataset():
 
 if __name__ == "__main__":
     # For creating dataset uncomment the CreateTransformerDataset function (line 29)
-    CreateTransformerDataset()
+    # CreateTransformerDataset()
 
+    test = Test()
     # For training the model uncomment line 25
-    # Train.startTraining()
+    test.Train()
 
     # For evaluating the trained model use line 30
-    # Inference().evaluateTestDataset(None)
+    test.Inference()

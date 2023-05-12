@@ -114,11 +114,12 @@ class TransformerDataset:
 
         if train:
             with open(self.formatted_train_file, "r") as file:
-                data = json.load(file)
+                train_data = json.load(file)
 
             with open(self.formatted_dev_file, "r") as file:
-                data.append(json.load(file))
+                dev_data = json.load(file)
 
+            data = train_data + dev_data
         else:
             with open(self.formatted_test_file, "r") as file:
                 data = json.load(file)
