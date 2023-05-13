@@ -20,11 +20,10 @@ In this approach we used a non-sequential model. The model have the following co
 Run the ```src/main.ipynb``` sequentially to reproduce the result.
 
 ### Training graphs
-1. Legend
 ![Legend](../assets/dnn/lagend.png)
-2. Epoch Accuracy
+1. Epoch / Accuracy
 ![Epoch Accuracy for Train & Validation](../assets/dnn/dnn_accuracy.png)
-3. Epocn F1 Score
+2. Epoch / F1 Score
 ![Epoch F1 Score for Train & Validation](../assets/dnn/dnn_f1_score.png)
 
 
