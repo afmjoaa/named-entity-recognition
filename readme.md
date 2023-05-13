@@ -12,6 +12,33 @@
 5. Transformer Fine Tuning (Hugging Face)
 ![alt text](assets/TRANSFINE.png)
 
+### Result
+Detail result analysis is available in each project directory.
+
+We couldn't complete the following approaches due to time constraints
+  - 2.Long Short Term Memory (Pytorch + lightening)
+  - 4.Scratch Transformer (Pytorch)
+
+For the other three approach the summery of the results are given below.
+
+#### Dense Neural Network Model Overall score
+| Dataset        | Accuracy | F1 Score |
+|----------------|----------|----------|
+| Train Set      | 0.8593   | 0.8579   | 
+| Validation Set | 0.8358   | 0.8685   | 
+| Test Set       | 0.8392   | 0.9547   | 
+
+#### Spacy Transition-based Parser Model Overall score
+| Dataset           | F1 Score   | Precision   | Recall     |
+|-------------------|------------|-------------|------------|
+| Validation Set    | 0.8554     | 0.8685      | 0.8426     |
+| Test Set          | 0.8658     | 0.8810      | 0.8510     |
+
+#### DistilBERT Fine-tuning Model Overall Scores
+| Dataset   | F1 Score | Precision | Recall | Accuracy |
+|-----------|----------|-----------|--------|----------|
+| Train Set | 0.5844   | 0.5833    | 0.5856 | 0.8844   |
+
 ### Project File Structure
 
 - Each approach have a directory associated with it

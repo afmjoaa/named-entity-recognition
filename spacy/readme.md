@@ -79,6 +79,13 @@
 | I-MedicalProcedure      | 71.43     | 90.91  | 80.00    |
 | I-Drink                 | 88.24     | 100.00 | 93.75    |
 
+F1 Score count based on condition
+
+| Entity List                                                                                                          | F1-Score Condition  | Count |
+|----------------------------------------------------------------------------------------------------------------------|---------------------|-------|
+| * all other                                                                                                          | F1-Score >= 80      | 58    |
+| B-CarManufacturer, I-Politician, I-Scientist, B-Software, I-Software, B-OtherLOC, B-Food, I-Food, B-MedicalProcedure | 75 <= F1-Score < 80 | 9     |
+
 #### Display
 ![NER With Spacy Overview](../assets/spacy/result.png)
 
