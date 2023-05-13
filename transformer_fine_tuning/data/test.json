@@ -25,6 +25,52 @@ true_predictions first 10 [
 ['O', 'O', 'O', 'O', 'B-MusicalGRP', 'I-MusicalGRP', 'O'],
 ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-ORG', 'B-ORG', 'B-ORG', 'B-ORG', 'I-ORG', 'I-ORG', 'O']]
 
-true_labels first 10 [['O', 'O', 'O', 'B-WrittenWork', 'I-WrittenWork', 'O', 'B-OtherPER', 'I-OtherPER', 'I-OtherPER', 'O', 'O', 'O'], ['O', 'O', 'B-Athlete', 'I-Athlete', 'I-Athlete', 'I-Athlete', 'I-Athlete', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'], ['B-SportsManager', 'I-SportsManager', 'I-SportsManager', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-SportsManager', 'I-SportsManager', 'I-SportsManager', 'O', 'O', 'O'], ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-Clothing', 'I-Clothing', 'O', 'O', 'O', 'O', 'B-OtherPROD', 'B-OtherPROD', 'O', 'O', 'O'], ['B-OtherPER', 'I-OtherPER', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'], ['O', 'O', 'O', 'O', 'O', 'B-VisualWork', 'I-VisualWork', 'O', 'B-VisualWork', 'B-VisualWork', 'B-VisualWork', 'O'], ['B-OtherPER', 'I-OtherPER', 'I-OtherPER', 'O', 'O', 'O', 'O', 'O'], ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-VisualWork', 'B-VisualWork', 'O', 'O', 'O', 'O', 'O', 'O'], ['O', 'O', 'O', 'O', 'B-MusicalGRP', 'O', 'B-MusicalGRP'], ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-ORG', 'B-ORG', 'B-ORG', 'B-ORG', 'I-ORG', 'I-ORG', 'O']]
-true_predictions last 10 [['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-Facility', 'I-Facility', 'O'], ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-OtherPROD', 'B-OtherPROD', 'B-OtherPROD', 'O'], ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-HumanSettlement', 'O', 'O', 'O', 'O', 'O'], ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-HumanSettlement', 'B-HumanSettlement', 'O'], ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-OtherLOC', 'B-OtherLOC', 'I-OtherLOC', 'I-OtherLOC', 'O', 'O', 'O', 'O', 'O'], ['B-Medication/Vaccine', 'B-Medication/Vaccine', 'B-Medication/Vaccine', 'B-Medication/Vaccine', 'O', 'O', 'O', 'O', 'O', 'O', 'B-Medication/Vaccine', 'B-Medication/Vaccine', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'], ['B-CarManufacturer', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'], ['O', 'O', 'O', 'O', 'O', 'B-Facility', 'I-Facility', 'I-Facility', 'I-Facility'], ['O', 'O', 'O', 'O', 'B-ORG', 'I-ORG', 'I-ORG', 'I-ORG', 'I-ORG', 'O', 'O', 'O'], ['O', 'O', 'O', 'O', 'B-OtherPROD', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-Symptom', 'O']]
-true_labels last 10 [['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-OtherLOC', 'I-OtherLOC', 'O'], ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-Software', 'B-Software', 'B-Software', 'O'], ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-HumanSettlement', 'O', 'O', 'O', 'O', 'O'], ['O', 'O', 'O', 'I-Station', 'O', 'O', 'O', 'O', 'O', 'O', 'B-Station', 'B-Station', 'O'], ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'I-Facility', 'B-Facility', 'B-Facility', 'I-Facility', 'I-Facility', 'I-Facility', 'I-Facility', 'I-Facility', 'I-Facility', 'O'], ['B-Medication/Vaccine', 'B-Medication/Vaccine', 'B-Medication/Vaccine', 'B-Medication/Vaccine', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'], ['B-CarManufacturer', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'], ['O', 'O', 'O', 'O', 'O', 'B-Facility', 'I-Facility', 'I-Facility', 'I-Facility'], ['O', 'O', 'O', 'I-ORG', 'B-ORG', 'I-ORG', 'I-ORG', 'I-ORG', 'I-ORG', 'O', 'O', 'O'], ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-Symptom', 'O']]
+true_labels first 10 [
+  ['O', 'O', 'O', 'B-WrittenWork', 'I-WrittenWork', 'O', 'B-OtherPER', 'I-OtherPER', 'I-OtherPER', 'O', 'O', 'O'],
+  ['O', 'O', 'B-Athlete', 'I-Athlete', 'I-Athlete', 'I-Athlete', 'I-Athlete', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
+  ['B-SportsManager', 'I-SportsManager', 'I-SportsManager', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-SportsManager', 'I-SportsManager', 'I-SportsManager', 'O', 'O', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-Clothing', 'I-Clothing', 'O', 'O', 'O', 'O', 'B-OtherPROD', 'B-OtherPROD', 'O', 'O', 'O'],
+  ['B-OtherPER', 'I-OtherPER', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'B-VisualWork', 'I-VisualWork', 'O', 'B-VisualWork', 'B-VisualWork', 'B-VisualWork', 'O'],
+  ['B-OtherPER', 'I-OtherPER', 'I-OtherPER', 'O', 'O', 'O', 'O', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-VisualWork', 'B-VisualWork', 'O', 'O', 'O', 'O', 'O', 'O'],
+  ['O', 'O', 'O', 'O', 'B-MusicalGRP', 'O', 'B-MusicalGRP'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-ORG', 'B-ORG', 'B-ORG', 'B-ORG', 'I-ORG', 'I-ORG', 'O']]
+
+true_predictions last 10 [['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-Facility', 'I-Facility', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-OtherPROD', 'B-OtherPROD', 'B-OtherPROD', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-HumanSettlement', 'O', 'O', 'O', 'O', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-HumanSettlement', 'B-HumanSettlement', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-OtherLOC', 'B-OtherLOC', 'I-OtherLOC', 'I-OtherLOC', 'O', 'O', 'O', 'O', 'O'],
+  ['B-Medication/Vaccine', 'B-Medication/Vaccine', 'B-Medication/Vaccine', 'B-Medication/Vaccine', 'O', 'O', 'O', 'O', 'O', 'O', 'B-Medication/Vaccine', 'B-Medication/Vaccine', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
+  ['B-CarManufacturer', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'B-Facility', 'I-Facility', 'I-Facility', 'I-Facility'],
+  ['O', 'O', 'O', 'O', 'B-ORG', 'I-ORG', 'I-ORG', 'I-ORG', 'I-ORG', 'O', 'O', 'O'],
+  ['O', 'O', 'O', 'O', 'B-OtherPROD', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-Symptom', 'O']]
+true_labels last 10 [
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-OtherLOC', 'I-OtherLOC', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-Software', 'B-Software', 'B-Software', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-HumanSettlement', 'O', 'O', 'O', 'O', 'O'],
+  ['O', 'O', 'O', 'I-Station', 'O', 'O', 'O', 'O', 'O', 'O', 'B-Station', 'B-Station', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'I-Facility', 'B-Facility', 'B-Facility', 'I-Facility', 'I-Facility', 'I-Facility', 'I-Facility', 'I-Facility', 'I-Facility', 'O'],
+  ['B-Medication/Vaccine', 'B-Medication/Vaccine', 'B-Medication/Vaccine', 'B-Medication/Vaccine', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
+  ['B-CarManufacturer', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'B-Facility', 'I-Facility', 'I-Facility', 'I-Facility'],
+  ['O', 'O', 'O', 'I-ORG', 'B-ORG', 'I-ORG', 'I-ORG', 'I-ORG', 'I-ORG', 'O', 'O', 'O'],
+  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-Symptom', 'O']]
+
+
+Prediction ['O', 'O', 'O', 'O', 'B-OtherPROD', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-Symptom', 'O']
+Label ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-Symptom', 'O']
+
+Prediction  ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-HumanSettlement', 'B-HumanSettlement', 'O']
+Label ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-HumanSettlement', 'O', 'O', 'O', 'O', 'O']
+
+Prediction ['O', 'O', 'O', 'O', 'B-MusicalGRP', 'I-MusicalGRP', 'O']
+Label ['O', 'O', 'O', 'O', 'B-MusicalGRP', 'O', 'B-MusicalGRP']
+
+Prediction ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-OtherPROD', 'B-OtherPROD', 'B-OtherPROD', 'O']
+Label ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'B-Software', 'B-Software', 'B-Software', 'O']
+
+Prediction ['O', 'O', 'O', 'O', 'B-ORG', 'I-ORG', 'I-ORG', 'I-ORG', 'I-ORG', 'O', 'O', 'O']
+Label ['O', 'O', 'O', 'I-ORG', 'B-ORG', 'I-ORG', 'I-ORG', 'I-ORG', 'I-ORG', 'O', 'O', 'O']
